@@ -1,5 +1,5 @@
 import React from 'react';
-import { removeContacts } from 'redux/contactSlice';
+import { removeContacts } from 'redux/operation';
 import { PropTypes } from 'prop-types';
 import { DelButton } from './Contact.styled';
 import { useDispatch } from 'react-redux';

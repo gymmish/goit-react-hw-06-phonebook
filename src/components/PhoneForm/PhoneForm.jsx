@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContacts } from '../../redux/contactSlice';
+import { addContacts } from 'redux/operation';
 import { getContacts } from '../../redux/selector';
 import { nanoid } from 'nanoid';
 import { PropTypes } from 'prop-types';
@@ -18,25 +18,31 @@ export default function PhoneForm() {
     e.preventDefault();
     const form = e.currentTarget;
     const { name, number } = form;
-    const resultName = name.value.toLowerCase();
+    const resultName = name.value
+      .toLowerCase()
+      .split(/\s+/)
+      .map(word => word[0].toUpperCase() + word.substring(1))
+      .join(' ');
 
     const newContact = {
       id: nanoid(),
       name: resultName,
       number: number.value,
     };
+    const isExsistName = contacts.map(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    const isExsistNumber = contacts.map(contact => contact.number === number);
 
-    if (contacts && contacts.length > 0) {
-      const getAllContactsNames = contacts.map(contact => contact.name);
-      if (getAllContactsNames.includes(resultName)) {
-        return alert(`${resultName} is already in contacts`);
-      }
-      const findNumber = contacts.map(contact => contact.number === number);
-      if (findNumber) {
-        return alert(`This phone number is already in use.`);
-      }
+    if (isExsistName) {
+      return alert(`${name} is already in contact`);
+    } else if (isExsistNumber) {
+      const { name } = contacts.find(contact => contact.number === number);
+      return alert(`${number} is already in contact as ${name}`);
     }
+
     dispatch(addContacts(newContact));
+    form.reset();
   };
 
   return (

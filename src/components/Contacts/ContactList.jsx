@@ -1,13 +1,20 @@
 import { PropTypes } from 'prop-types';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { getContacts, getFilter } from 'redux/selector';
+import { fetchContacts } from 'redux/operation';
 import { PhoneBook, NewContact } from './Contact.styled';
 import { Contact } from './NewContact';
 
 export const ContactList = () => {
+  const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   if (!contacts) return null;
 
