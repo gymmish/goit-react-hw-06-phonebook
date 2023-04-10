@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContacts } from 'redux/operation';
-import { getContacts } from 'redux/selector';
+import { selectContacts } from 'redux/selector';
 import { nanoid } from 'nanoid';
 import { PropTypes } from 'prop-types';
 import { Formik } from 'formik';
 import { Form, AddButton } from './Phone.styled';
 
 export default function PhoneForm() {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const nameId = nanoid();

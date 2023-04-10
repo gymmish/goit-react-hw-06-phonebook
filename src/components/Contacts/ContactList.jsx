@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { contactsFiltered, getIsLoading, getError } from 'redux/selector';
+import { contactsFiltered, selectIsLoading, selectError } from 'redux/selector';
 import { fetchContacts } from 'redux/operation';
 import { PhoneBook, NewContact } from './Contact.styled';
 import { Contact } from './NewContact';
@@ -11,8 +11,8 @@ import Loader from '../Loader/Loader';
 export const ContactList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(contactsFiltered);
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContacts());
