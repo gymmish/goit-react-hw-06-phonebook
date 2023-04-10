@@ -2,34 +2,38 @@ import { PropTypes } from 'prop-types';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getContacts, getFilter } from 'redux/selector';
+import { contactsFiltered, getIsLoading, getError } from 'redux/selector';
 import { fetchContacts } from 'redux/operation';
 import { PhoneBook, NewContact } from './Contact.styled';
 import { Contact } from './NewContact';
+import Loader from '../Loader/Loader';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const contacts = useSelector(contactsFiltered);
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  if (!contacts) return null;
-
-  const contactsFiltered = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  // if (!contacts) return null;
 
   return (
-    <PhoneBook>
-      {contactsFiltered.map(({ id, name, number }) => (
-        <NewContact key={id}>
-          <Contact id={id} name={name} number={number}></Contact>
-        </NewContact>
-      ))}
-    </PhoneBook>
+    <>
+      {!isLoading && !error ? (
+        <PhoneBook>
+          {contacts.map(({ id, name, number }) => (
+            <NewContact key={id}>
+              <Contact id={id} name={name} number={number}></Contact>
+            </NewContact>
+          ))}
+        </PhoneBook>
+      ) : (
+        <Loader></Loader>
+      )}
+    </>
   );
 };
 

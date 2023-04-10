@@ -23,41 +23,25 @@ export const myContactsSlice = createSlice({
     [fetchContacts.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      state.items = action.payload.reverse();
+      state.items = action.payload;
     },
     [fetchContacts.rejected]: handleRejected,
-
     [addContacts.pending]: handlePending,
     [addContacts.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      state.items.unshift(action.payload);
+      state.items.push(action.payload);
     },
     [addContacts.rejected]: handleRejected,
-
     [removeContacts.pending]: handlePending,
     [removeContacts.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      state.items = state.items.filter(
-        contact => contact.id !== action.payload.id
-      );
+      state.items = state.items.filter(item => item.id !== action.payload.id);
     },
     [removeContacts.rejected]: handleRejected,
   },
 });
-
-//   reducers: {
-//     addContacts(state, action) {
-//       state.items.push(action.payload);
-//     },
-//     removeContacts(state, action) {
-//       state.items = state.items.filter(
-// contact => contact.id !== action.payload
-//       );
-//     },
-//   },
-// });
 
 export const contactsReducer = myContactsSlice.reducer;
 // export const { addContacts, removeContacts } = myContactsSlice.actions;

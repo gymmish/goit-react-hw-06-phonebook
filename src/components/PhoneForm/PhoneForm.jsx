@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContacts } from 'redux/operation';
-import { getContacts } from '../../redux/selector';
+import { getContacts } from 'redux/selector';
 import { nanoid } from 'nanoid';
 import { PropTypes } from 'prop-types';
 import { Formik } from 'formik';
@@ -14,40 +14,32 @@ export default function PhoneForm() {
   const nameId = nanoid();
   const numberId = nanoid();
 
-  const formSubmitHandle = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const { name, number } = form;
-    const resultName = name.value
-      .toLowerCase()
-      .split(/\s+/)
-      .map(word => word[0].toUpperCase() + word.substring(1))
-      .join(' ');
 
-    const newContact = {
-      id: nanoid(),
-      name: resultName,
-      number: number.value,
+    const contact = {
+      name: e.currentTarget.elements.name.value,
+      number: e.currentTarget.elements.number.value,
     };
-    const isExsistName = contacts.map(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-    const isExsistNumber = contacts.map(contact => contact.number === number);
 
-    if (isExsistName) {
-      return alert(`${name} is already in contact`);
-    } else if (isExsistNumber) {
-      const { name } = contacts.find(contact => contact.number === number);
-      return alert(`${number} is already in contact as ${name}`);
+    const currentName = contacts.find(
+      ({ name }) => name.toLowerCase() === contact.name.toLowerCase()
+    );
+
+    if (currentName) {
+      console.log(currentName);
+      alert(`${currentName.name} is already exist!`);
+      return;
     }
 
-    dispatch(addContacts(newContact));
-    form.reset();
+    dispatch(addContacts(contact));
+
+    e.target.reset();
   };
 
   return (
     <Formik>
-      <Form onSubmit={formSubmitHandle} name="contact">
+      <Form onSubmit={handleSubmit} name="contact">
         <label htmlFor={nameId}>
           Name
           <input

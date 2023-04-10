@@ -27,6 +27,7 @@ export const DelButton = styled.button`
   border-radius: 10px;
   border: none;
   height: 30px;
+  margin-left: 10px;
   margin-top: 10px;
   :hover {
     box-shadow: 0 5px 10px 2px rgb(0 0 0 / 25%);

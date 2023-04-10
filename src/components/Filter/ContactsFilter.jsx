@@ -1,16 +1,19 @@
 import { PropTypes } from 'prop-types';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getFilter } from '../../redux/selector';
-import { setNameFilter } from '../../redux/filterSlice';
+import { useDispatch } from 'react-redux';
 
+import { setNameFilter } from 'redux/filterSlice';
 import { nanoid } from 'nanoid';
 import { FilterForm } from './Filter.styled';
 
 const ContactFilter = () => {
   const filterId = nanoid();
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
+
+  const onFilterChange = e => {
+    const value = e.target.value;
+    dispatch(setNameFilter(value));
+  };
 
   return (
     <FilterForm>
@@ -18,8 +21,7 @@ const ContactFilter = () => {
       <input
         type="text"
         id={filterId}
-        value={filter}
-        onChange={e => dispatch(setNameFilter(e.target.value))}
+        onChange={onFilterChange}
         name="filter"
       />
     </FilterForm>
