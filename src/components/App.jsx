@@ -1,106 +1,72 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchContacts } from 'redux/operation';
-// import { getError, getIsLoading } from 'redux/selector.js';
-import PhoneForm from './PhoneForm/PhoneForm';
-import Section from './Section/Section';
-import ContactFilter from './Filter/ContactsFilter';
-import ContactList from './Contacts/ContactList';
+import React from 'react';
+import { lazy, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectIsRefreshing } from '../redux/auth/selectors';
 
-export default function App() {
+import { PrivateRoute } from './PrivateRouter';
+import { RestrictedRoute } from './RestrictedRouter';
+import { refreshUser } from '../redux/auth/operation';
+import Home from '../pages/Home';
+import Layout from './Layout/Layout';
+import Loader from '../components/Loader/Loader';
+
+document.title = 'PhonebookBox_redux';
+
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const ContactsPage = lazy(() => import('../pages/Contscts'));
+
+const App = () => {
   const dispatch = useDispatch();
-  // const isLoading = useSelector(getIsLoading);
-  // const error = useSelector(getError);
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return (
     <>
-      <Section title="Phonebook">
-        <PhoneForm />
-        {/* {isLoading && !error && <b>Request in progress...</b>} */}
-      </Section>
-      <Section title="Contacts">
-        <ContactFilter />
+      {isRefreshing ? (
+        <Loader />
+      ) : (
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route
+              path="register"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={<RegisterPage />}
+                />
+              }
+            />
 
-        <ContactList />
-      </Section>
+            <Route
+              path="login"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={<LoginPage />}
+                />
+              }
+            />
+
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute
+                  redirectTo="/login"
+                  component={<ContactsPage />}
+                />
+              }
+            />
+          </Route>
+        </Routes>
+      )}
     </>
   );
-}
+};
 
-// export class App extends Component {
-//   state = {
-//     contacts: [],
-//     filter: '',
-//   };
-
-// componentDidMount() {
-//   const seveContacts = localStorage.getItem('contacts');
-//   if (seveContacts !== null) {
-//     const parsedContacts = JSON.parse(seveContacts);
-//     this.setState({ contacts: parsedContacts });
-//     return;
-//   }
-//   this.setState({ contacts: [] });
-//   }
-
-//   componentDidUpdate(prevProps, prevState) {
-// if (prevState.contacts !== this.state.contacts) {
-//   localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-//     }
-//   }
-
-//   addContact = contact => {
-//   const id = nanoid();
-//   const { name } = contact;
-
-//   if (
-//     this.state.contacts.filter(contact => contact.name === name).length > 0
-//   ) {
-//     alert(`${name} is already in contacts`);
-//     return;
-//   }
-
-//   this.setState(prevState => ({
-//     contacts: [...prevState.contacts, { id, ...contact }],
-//   }));
-// };
-// deleteItem = id => {
-//   this.setState(prevState => ({
-//     contacts: [...prevState.contacts.filter(item => item.id !== id)],
-//   }));
-// };
-
-// filterChange = e => {
-//   const filter = e.target.value;
-//   this.setState({ filter: filter.toLowerCase() });
-// };
-
-// filterContacts = () => {
-//   const { filter, contacts } = this.state;
-// return contacts.filter(({ name }) => name.toLowerCase().includes(filter));
-// };
-
-//   render() {
-//     return (
-//       <>
-//         <Section title="Phonebook">
-//           <PhoneForm onSubmit={this.addContact} />
-//         </Section>
-//         <Section title="Contacts">
-//           <ContactFilter onChange={this.filterChange} />
-
-//           <ContactList
-//             onDelete={this.deleteItem}
-//             items={this.filterContacts()}
-//           />
-//         </Section>
-//       </>
-//     );
-//   }
-// }
-
-// export default App;
+export default App;
