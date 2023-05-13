@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import { DelButton } from './Contact.styled';
 import { useDispatch } from 'react-redux';
 
-export const Contact = ({ id, name, number }) => {
+export const NewContact = ({ id, name, number }) => {
   const dispatch = useDispatch();
   return (
     <span key={id}>

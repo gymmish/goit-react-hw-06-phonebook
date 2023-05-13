@@ -22,7 +22,7 @@ export const LoginForm = () => {
   return (
     <>
       {errorLogin && <div>Error login</div>}
-      <div autoComplete="off" onSubmit={handleSubmit}>
+      <form autoComplete="off" onSubmit={handleSubmit}>
         <label>
           Email
           <input type="email" name="email" required />
@@ -32,7 +32,7 @@ export const LoginForm = () => {
           <input type="password" name="password" required />
         </label>
         <button type="submit">Log In</button>
-      </div>
+      </form>
     </>
   );
 };

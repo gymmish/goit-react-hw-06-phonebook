@@ -24,7 +24,6 @@ const Contscts = () => {
       </Section>
       <Section title="Contacts">
         <ContactFilter />
-
         <ContactList />
       </Section>
     </>

@@ -19,25 +19,14 @@ export const RegisterForm = () => {
   };
 
   return (
-    <div autoComplete="off" onSubmit={handleSubmit}>
+    <form autoComplete="off" onSubmit={handleSubmit}>
       <label>
         Username
-        <input
-          type="text"
-          name="name"
-          required
-          placeholder="Denys iElkin"
-          minLength={3}
-        />
+        <input type="text" name="name" required minLength={3} />
       </label>
       <label>
         Email
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="hvoarang@gmail.com"
-        />
+        <input type="email" name="email" required />
       </label>
       <label>
         Password
@@ -50,6 +39,6 @@ export const RegisterForm = () => {
         />
       </label>
       <button type="submit">Register</button>
-    </div>
+    </form>
   );
 };

@@ -9,12 +9,12 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/goit-react-hw-06-phonebook">
-      <Provider store={store}>
+    <Provider store={store}>
+      <BrowserRouter basename="/goit-react-hw-06-phonebook">
         <PersistGate loading={null} persistor={persistor}>
           <App />
         </PersistGate>
-      </Provider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );

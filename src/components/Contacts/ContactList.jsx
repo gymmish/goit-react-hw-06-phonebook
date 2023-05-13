@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { contactsFiltered, selectIsLoading, selectError } from 'redux/selector';
 import { fetchContacts } from 'redux/operation';
 import { PhoneBook, NewContact } from './Contact.styled';
-import { Contact } from './NewContact';
+import { NewContact } from './NewContact';
 import Loader from '../Loader/Loader';
 
 export const ContactList = () => {
@@ -25,9 +25,7 @@ export const ContactList = () => {
       {!isLoading && !error ? (
         <PhoneBook>
           {contacts.map(({ id, name, number }) => (
-            <NewContact key={id}>
-              <Contact id={id} name={name} number={number}></Contact>
-            </NewContact>
+            <NewContact key={id}></NewContact>
           ))}
         </PhoneBook>
       ) : (
