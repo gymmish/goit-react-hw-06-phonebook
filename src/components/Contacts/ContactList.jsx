@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 import { contactsFiltered, selectIsLoading, selectError } from 'redux/selector';
 import { fetchContacts } from 'redux/operation';
 import { PhoneBook, NewContact } from './Contact.styled';
-import { NewContact } from './NewContact';
 import Loader from '../Loader/Loader';
+import { DelButton } from './Contact.styled';
+import { removeContacts } from 'redux/operation';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,17 @@ export const ContactList = () => {
       {!isLoading && !error ? (
         <PhoneBook>
           {contacts.map(({ id, name, number }) => (
-            <NewContact key={id}></NewContact>
+            <NewContact>
+              <span>
+                {name}: {number}
+                <DelButton
+                  type="button"
+                  onClick={() => dispatch(removeContacts(id))}
+                >
+                  Delete
+                </DelButton>
+              </span>
+            </NewContact>
           ))}
         </PhoneBook>
       ) : (
