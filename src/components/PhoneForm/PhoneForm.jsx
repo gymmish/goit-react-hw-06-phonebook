@@ -5,7 +5,8 @@ import { selectContacts } from 'redux/selector';
 import { nanoid } from 'nanoid';
 import { PropTypes } from 'prop-types';
 import { Formik } from 'formik';
-import { Form, AddButton } from './Phone.styled';
+import { FormPhone, AddButton } from './Phone.styled';
+import { InputUser, LabellUser } from '../authForms/authForms.styled';
 
 export default function PhoneForm() {
   const contacts = useSelector(selectContacts);
@@ -39,10 +40,10 @@ export default function PhoneForm() {
 
   return (
     <Formik>
-      <Form onSubmit={handleSubmit} name="contact">
-        <label htmlFor={nameId}>
+      <FormPhone onSubmit={handleSubmit} name="contact">
+        <LabellUser htmlFor={nameId}>
           Name
-          <input
+          <InputUser
             id={nameId}
             type="text"
             name="name"
@@ -50,10 +51,10 @@ export default function PhoneForm() {
             title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
             required
           />
-        </label>
-        <label htmlFor={numberId}>
+        </LabellUser>
+        <LabellUser htmlFor={numberId}>
           Number
-          <input
+          <InputUser
             id={numberId}
             type="tel"
             name="number"
@@ -61,9 +62,9 @@ export default function PhoneForm() {
             title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
             required
           />
-        </label>
+        </LabellUser>
         <AddButton type="submit">Add contact</AddButton>
-      </Form>
+      </FormPhone>
     </Formik>
   );
 }

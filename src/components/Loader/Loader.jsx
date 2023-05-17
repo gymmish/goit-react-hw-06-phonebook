@@ -9,14 +9,15 @@ const Loader = () => {
         strokeWidth="5"
         animationDuration="0.75"
         width="96"
+        strokeColor="#5c258d"
       />
     </Box>
   );
 };
 
-export default Loader;
-
 const Box = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export default Loader;

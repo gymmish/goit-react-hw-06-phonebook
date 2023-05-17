@@ -10,8 +10,9 @@ import { refreshUser } from '../redux/auth/operation';
 import Home from '../pages/Home';
 import Layout from './Layout/Layout';
 import Loader from '../components/Loader/Loader';
+import './App.module.css';
 
-document.title = 'PhonebookBox_redux';
+document.title = 'Gymmish';
 
 const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));

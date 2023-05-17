@@ -1,10 +1,11 @@
 import { Form as FormikForm } from 'formik';
 import styled from '@emotion/styled';
 
-export const Form = styled(FormikForm)`
-  background: #7fc27f;
-  color: white;
+export const FormPhone = styled(FormikForm)`
+  background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  color: black;
   font-size: 1.5rem;
+  list-style-type: none;
   list-style-type: none;
   text-align: center;
   padding: 12px 18px;
@@ -16,13 +17,15 @@ export const Form = styled(FormikForm)`
 
 export const AddButton = styled.button`
   width: 100px;
-  color: #5a5a5a;
-  background-color: #fafafa;
+  color: black;
   border-radius: 10px;
   border: none;
   height: 30px;
   margin-left: 20px;
+  background: #d8d8d8;
   :hover {
+    color: white;
     box-shadow: 0 5px 10px 2px rgb(0 0 0 / 25%);
+    background: linear-gradient(-225deg, #b7f8db 0%, #50a7c2 100%);
   }
 `;

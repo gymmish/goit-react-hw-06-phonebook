@@ -1,5 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../../redux/auth/operation';
+import { Formik } from 'formik';
+import {
+  FormUser,
+  ButtonUser,
+  InputUser,
+  LabellUser,
+} from './authForms.styled';
+
+import { Toaster } from 'react-hot-toast';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -21,18 +30,42 @@ export const LoginForm = () => {
 
   return (
     <>
-      {errorLogin && <div>Error login</div>}
-      <form autoComplete="off" onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input type="email" name="email" required />
-        </label>
-        <label>
-          Password
-          <input type="password" name="password" required />
-        </label>
-        <button type="submit">Log In</button>
-      </form>
+      {errorLogin && <Toaster />}
+      <Formik>
+        <FormUser autoComplete="off" onSubmit={handleSubmit}>
+          <LabellUser>
+            Email
+            <InputUser
+              type="email"
+              name="email"
+              placeholder="****@gmail.com"
+              required
+            />
+          </LabellUser>
+          <LabellUser>
+            Password
+            <InputUser
+              type="password"
+              name="password"
+              placeholder="*******"
+              required
+            />
+          </LabellUser>
+          <ButtonUser type="submit">
+            Log In
+            <Toaster
+              toastOptions={{
+                className: '',
+                style: {
+                  padding: '16px',
+                  width: '30%',
+                  color: '#713200',
+                },
+              }}
+            />
+          </ButtonUser>
+        </FormUser>
+      </Formik>
     </>
   );
 };

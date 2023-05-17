@@ -17,16 +17,16 @@ const Contscts = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <Section title="Phonebook">
+    <Section>
+      <div title="Phonebook">
         <PhoneForm />
         {/* {isLoading && !error && <b>Request in progress...</b>} */}
-      </Section>
-      <Section title="Contacts">
+      </div>
+      <div title="Contacts">
         <ContactFilter />
         <ContactList />
-      </Section>
-    </>
+      </div>
+    </Section>
   );
 };
 

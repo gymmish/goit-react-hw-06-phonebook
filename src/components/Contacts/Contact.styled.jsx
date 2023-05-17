@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 
 export const PhoneBook = styled.ul`
-  background: #aaacaa;
-  color: white;
+  background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  color: black;
   font-size: 1rem;
+
   list-style-type: none;
   text-align: center;
   padding: 12px 18px;
@@ -29,7 +30,15 @@ export const DelButton = styled.button`
   height: 30px;
   margin-left: 10px;
   margin-top: 10px;
-  :hover {
-    box-shadow: 0 5px 10px 2px rgb(0 0 0 / 25%);
-  }
+    &:hover,
+    &:focus {
+      box-shadow: 0 5px 10px 2px rgb(0 0 0 / 25%);
+      background: linear-gradient(
+        to right,
+        rgb(242, 112, 156),
+        rgb(255, 148, 114)
+      );
+      background-size: 200%;
+      color: #fff;
+      cursor: pointer;
 `;

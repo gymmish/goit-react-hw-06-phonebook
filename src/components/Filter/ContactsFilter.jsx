@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { setNameFilter } from 'redux/filterSlice';
 import { nanoid } from 'nanoid';
-import { FilterForm } from './Filter.styled';
+import { FilterForm, FilterInput } from './Filter.styled';
 
 const ContactFilter = () => {
   const filterId = nanoid();
@@ -18,7 +18,7 @@ const ContactFilter = () => {
   return (
     <FilterForm>
       <label htmlFor={filterId}>Find contacts by name</label>
-      <input
+      <FilterInput
         type="text"
         id={filterId}
         onChange={onFilterChange}
